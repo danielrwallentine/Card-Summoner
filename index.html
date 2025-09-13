@@ -53,15 +53,9 @@ function updateFrameColor() {
   cardColor = colors.toUpperCase();
  }
  if (document.querySelector("styler :checked").getAttribute("value") == "0") {
-  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15PT' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15Frame' + cardColor + '.png")';
-  document.querySelector("crown").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15Crown' + cardColor + '.png")';
+  document.querySelector("#pdback").style.backgroundImage = 'url("data/images/m15/PT/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("data/images/m15/Basic/' + cardColor + '.png")';
   document.querySelector("titl").style.backgroundImage = "none";
-  document.querySelector("crown").style.height = "88.48px";
-  document.querySelector("crown").style.width = "358px";
-  document.querySelector("crown").style.left = "10px";
-  document.querySelector("crownbd").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15MaskBorderSliverCrown.png")';
-  document.querySelector("crownout").hidden = "true";
   document.querySelector("#cardName").style.color = "black";
   document.querySelector("#nickname").style.color = "transparent";
   document.querySelector("#typeLine").style.color = "black";
@@ -71,24 +65,12 @@ function updateFrameColor() {
  } else if (document.querySelector("styler :checked").getAttribute("value") == "1") {
   document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15NicknamePT' + cardColor + '.png")';
   document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/genericShowcase/m15GenericShowcaseFrame' + cardColor + '.png")';
-  document.querySelector("crown").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15CrownFloating' + cardColor + '.png")';
   document.querySelector("titl").style.backgroundImage = "none";
-  document.querySelector("crown").style.height = "54px";
-  document.querySelector("crown").style.width = "354px";
-  document.querySelector("crown").style.left = "12px";
-  document.querySelector("crownbd").style.backgroundImage = "none";
-  document.querySelector("crownout").removeAttribute("hidden");
   document.querySelector("#nickname").style.color = "transparent";
  } else if (document.querySelector("styler :checked").getAttribute("value") == "2") {
   document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15NicknamePT' + cardColor + '.png")';
   document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15NicknameFrame' + cardColor + '.png")';
-  document.querySelector("crown").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15NicknameCrown' + cardColor + '.png")';
   document.querySelector("titl").style.backgroundImage = 'url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15NicknameTitle' + cardColor + '.png")';
-  document.querySelector("crown").style.height = "67.58px";
-  document.querySelector("crown").style.width = "358px";
-  document.querySelector("crown").style.left = "10px";
-  document.querySelector("crownbd").style.backgroundImage = "none";
-  document.querySelector("crownout").hidden = "true";
   document.querySelector("#cardName").style.color = "white";
   document.querySelector("#nickname").style.color = "white";
   document.querySelector("#typeLine").style.color = "white";
