@@ -34,7 +34,8 @@ i.remove();
 i.click();
 }
 
-cardColor = "C";
+cardColor = "A";
+legend = "";
 
 function updateFrameColor() {
  colors = "";
@@ -55,7 +56,7 @@ function updateFrameColor() {
 
  if (document.querySelector("styler :checked").getAttribute("value") == "0") {
   document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Basic/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Basic/' + legend + cardColor + '.png")';
   document.querySelector("#cardName").style.color = "black";
   document.querySelector("#nickname").style.color = "transparent";
   document.querySelector("#typeLine").style.color = "black";
@@ -64,16 +65,21 @@ function updateFrameColor() {
   color_state = 0;
  } else if (document.querySelector("styler :checked").getAttribute("value") == "1") {
   document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Showcase/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Showcase/' + legend + cardColor + '.png")';
   document.querySelector("#nickname").style.color = "transparent";
+  document.querySelector("#cardName").style.color = "black";
+  document.querySelector("#nickname").style.color = "transparent";
+  document.querySelector("#typeLine").style.color = "white";
+  document.querySelector("#statBox").style.color = "white";
+  document.querySelector("#pd").style.color = "black";
  } else if (document.querySelector("styler :checked").getAttribute("value") == "2") {
   document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Nickname/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Nickname/' + legend + cardColor + '.png")';
   document.querySelector("#cardName").style.color = "white";
   document.querySelector("#nickname").style.color = "white";
   document.querySelector("#typeLine").style.color = "white";
   document.querySelector("#statBox").style.color = "white";
-  document.querySelector("#pd").style.color = "white";
+  document.querySelector("#pd").style.color = "black";
   color_state = 3;
  } else if (document.querySelector("styler :checked").getAttribute("value") == "3") {
   document.querySelector("#pdback").style.display = "none";
@@ -87,11 +93,9 @@ function updateBorderByType(typeLine) {
   document.querySelector("#pdback").hidden = true;
  }
  if (typeLine.innerHTML.includes("Legendary")) {
-  document.querySelector("titl").hidden = true;
- } else if (document.querySelector("styler :checked").getAttribute("value") == "2") {
-  document.querySelector("titl").hidden = false;
+  legend = "Legend";
  } else {
-  document.querySelector("titl").hidden = true;
+  legend = "";
  }
 }
 
