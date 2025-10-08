@@ -6,7 +6,6 @@
 <title>Card Summoning</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css"/>
 <link href="https://unpkg.com/@saeris/typeface-beleren-bold@latest/index.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 <script>
@@ -16,6 +15,11 @@ function keyPress(key) {
   i.setAttribute("onclick", "this.remove(); updateFrameColor();");
   document.querySelector("#cardCost").appendChild(i);
   updateFrameColor();
+}
+
+function autoReplaceSymbols() {
+  statbox = document.querySelector("#statBox");
+  
 }
 
 function loadImage() {
@@ -202,6 +206,9 @@ function indtast(key) {
   :root {
     --font-size:16px;
   }
+  body {
+    font-family: "Beleren Bold";
+  }
   #ach {
     position:fixed;
     top:0px;
@@ -210,7 +217,6 @@ function indtast(key) {
     width:378px;
   }
   background {
-    font-family: "Beleren Bold";
     font-size:16px;
     color:black;
     display:block;
@@ -235,6 +241,7 @@ function indtast(key) {
     background-image:url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/Basic/A.png");
   }
   collection {
+    font-family: sans-serif;
     display:block;
     position:absolute;
     bottom:14px;
@@ -263,15 +270,14 @@ function indtast(key) {
   }
   #artnub {
     position:absolute;
-    bottom:11px;
-    left:52px;
+    bottom:10.5px;
+    left:53px;
     width:20px;
     height:20px;
     background-color:transparent;
     box-shadow:none;
   }
   printer {
-    font-family: "Beleren Bold";
     display:block;
     position:absolute;
     bottom:14px;
@@ -365,47 +371,41 @@ function indtast(key) {
     width:50px;
   }
   #export {
-    position:fixed;
-    bottom:0px;
-    left:0px;
-    right:0px;
+    border-color: white;
+    border-width: 3px;
+    border-style: solid;
+    color: white;
   }
   #fontsize {
-    position:fixed;
-    bottom:40px;
-    left:0px;
-    right:0px;
+    width: 50px;
   }
   #color {
-    position:fixed;
-    bottom:80px;
-    left:0px;
-    right:0px;
+    border-color: white;
+    border-width: 3px;
+    border-style: solid;
+    color: white;
   }
   .keyboard {
     position:absolute;
     top:20px;
     left:378px;
-    background-color:gray;
+    background-color:rgb(75, 75, 75);
+    color: white;
     padding:6px;
   }
   styler {
-    position:absolute;
-    top:520px;
-    left:0px;
-    background-color:transparent;
-    padding:6px;
+    display: inline;
   }
-  #t {
-    top:610px;
+  abbr[title] {
+    border: 0;
+    text-decoration: none;
   }
-  mana {
+  .card-symbol {
     display:inline-flex;
-    vertical-align:center;
+    vertical-align:top;
     justify-content:center;
     align-items: center;
     text-align:center;
-    font-family: "Beleren Bold";
     background-color:rgb(186,179,177);
     width:20px;
     height:20px;
@@ -415,54 +415,96 @@ function indtast(key) {
     color:black;
     margin-left:1px;
     margin-right:1px;
+    text-indent: -999em;
   }
-  mana::before {
-    content:attr(val);
-    position:relative;
+  .card-symbol::before {
+    text-indent: 0em;
+    font-style: normal;
   }
-  #statBox mana {
+  .card-symbol::after {
+    font-family: "Mana";
+    text-indent: 0em;
+    font-style: normal;
+  }
+  #statBox .card-symbol {
     width:var(--font-size);
     height:var(--font-size);
     font-size:var(--font-size);
   }
-  .w {
+  #statBox .card-symbol::after {
+    font-size:calc(var(--font-size) - 15%);
+  }
+  #statBox .card-symbol::before {
+    font-size:calc(var(--font-size) - 7.5%);
+  }
+  .card-symbol-W {
     background-color:rgb(248,231,185);
   }
-  .w::after {
-    font-family: "Mana";
+  .card-symbol-W::after {
     content:'\E600';
   }
-  .u {
+  .card-symbol-U {
     background-color:rgb(179,206,234);
   }
-  .u::after {
-    font-family: "Mana";
+  .card-symbol-U::after {
     content:'\E601';
   }
-  .b {
+  .card-symbol-B {
     background-color:rgb(186,179,177);
   }
-  .b::after {
-    font-family: "Mana";
+  .card-symbol-B::after {
     content:'\E602';
   }
-  .r {
+  .card-symbol-R {
     background-color:rgb(235,159,130);
   }
-  .r::after {
-    font-family: "Mana";
+  .card-symbol-R::after {
     content:'\E603';
   }
-  .g {
+  .card-symbol-G {
     background-color:rgb(145,200,160);
   }
-  .g::after {
-    font-family: "Mana";
+  .card-symbol-G::after {
     content:'\E604';
   }
-  .a::after {
-    font-family: "Mana";
+  .card-symbol-C::after {
     content:'\E904';
+  }
+  .card-symbol-X::before {
+    content:'X';
+  }
+  .card-symbol-0::before {
+    content:'0';
+  }
+  .card-symbol-1::before {
+    content:'1';
+  }
+  .card-symbol-2::before {
+    content:'2';
+  }
+  .card-symbol-3::before {
+    content:'3';
+  }
+  .card-symbol-4::before {
+    content:'4';
+  }
+  .card-symbol-5::before {
+    content:'5';
+  }
+  .card-symbol-6::before {
+    content:'6';
+  }
+  .card-symbol-7::before {
+    content:'7';
+  }
+  .card-symbol-8::before {
+    content:'8';
+  }
+  .card-symbol-9::before {
+    content:'9';
+  }
+  .card-symbol-T::after {
+    content:'\E61A';
   }
   .itlc {
     font-style: italic;
@@ -482,7 +524,7 @@ function indtast(key) {
         <box id="pictureFrame" onclick="loadImage();"></box>
         <box id="typeLine" onblur="updateBorderByType(this);" contenteditable="true" placeholder="Card Type">Creature - Human</box>
         <svg id="icon" fill="orange" stroke="black" stroke-width="40" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="600 400 1000 900"><path d="M1000 552.7c-100.7 2.7-201.4 18.7-232.6 36.8-5.9 3.5-6.8 6.3-6.1 20.3.8 17.1 3.7 32 22.6 115.7 12 53.2 21 99.4 26.1 134.2 3.3 22.6 7 55.2 7 61.8 0 3.3.6 4.5 3.5 7l3.5 3 .6 18c.7 19.2 0 23.3-3.6 24.2-1.8.5-2 1.4-2 8.2 0 11.6-1.9 34.2-4 48.1-1 6.8-1.8 12.6-1.7 12.7.5.4 56.1 8.3 72.2 10.2 48.4 5.8 91.3 8.3 143.5 8.3 65.9.1 111.4-3.5 183.5-14.7 31.7-4.9 78.6-13.4 79.8-14.5.4-.4-.7-5.8-2.6-12.1-4-13.2-7.1-26.4-9.6-41-1.5-9.1-2-10.4-3.9-10.7-1.1-.2-2.5-.9-3-1.5-1.6-2-3.1-11.1-4.4-26.4l-1.2-14.6 2.7-2.3 2.7-2.3.4-40.3c.7-70.1 6.1-115.9 27-230.8 9.5-52 10-58.2 5.2-61.3-5.8-3.8-30.9-11.1-53.6-15.6-54.7-10.8-122.4-17.8-194-20.1-28.8-.9-35.1-1-58-.3m-39.7 310.7c18.4 5.5 29.6 12.2 42.7 25.6 17.3 17.6 25.3 37.3 25.4 62 0 24.7-8 44.6-25.3 62.3-29.3 30.3-74 37.7-112.2 18.7-54.1-26.8-67.7-97.2-27.3-140.8 14.6-15.8 30.2-24.7 52.5-29.7 4.5-1 10.7-1.4 20.9-1.1 12.1.3 16 .8 23.3 3m221.5-1.8c9.8 2 23.4 7.1 30.7 11.5 25.8 15.4 42.7 42.6 45 72.1 1.3 16.4-3.4 36.2-12.3 51.3-5.6 9.6-21.9 26.4-30.4 31.3-19.4 11.4-40 16.2-60.7 14.2-60.4-6-99.3-64-80.2-119.7 4.1-12 10.5-22.5 19.4-31.9 14.8-15.7 29.9-24.1 51.8-28.9 8.9-1.9 27.3-1.9 36.7.1m-122.5 79.3c4.7 3.2 4.7 3.3 4.7 8.9 0 6.4-.6 7.6-3.6 8.6-1.4.4-2.7-.1-4.4-1.9-3.8-4.1-8.2-4.3-14.2-.6-7.2 4.5-8.8 3.7-8.8-4.3 0-7 .8-8.6 6.5-12.1 5.7-3.6 13.2-3.1 19.8 1.4"/><path d="M924.2 879c-19.6 2.7-38.5 13.4-49.7 28.2-20.5 27-20.3 62.8.5 88.5 20.3 25.1 54.7 34.5 85.5 23.6 23.2-8.3 40.9-27.5 47.1-51.3 2.3-8.7 2.3-25.3 0-34-9.5-36-46-60.1-83.4-55m228.5.1c-19.1 2.6-37.9 13.2-49.2 27.9-36 46.8-5 112.6 55 116.7 35.9 2.4 68.2-20.2 77.6-54.4 2.7-9.8 2.9-24.7.5-34.8-6.1-25.5-28.4-47.5-54.6-53.8-8.6-2.1-20.9-2.8-29.3-1.6m120.6 49.5c-.7 1.9.4 24.3 1.5 29.4.8 3.4.9 3.5 6.3 3.8 7.5.4 8.5-.8 6.9-8.2-.6-3.1-1.4-10.2-1.8-15.8l-.7-10.3-5.8-.3c-4.6-.2-5.8 0-6.4 1.4m-466.6 6.1c-.2.5-.2 8.1.1 17.1.5 18.3.2 17.7 8.8 17 3.7-.3 3.9-.5 4.6-4.3.9-5.2-.2-27.6-1.5-29.3-1-1.3-11.3-1.7-12-.5m-150.5 107.1c-7 2.5-10.9 6.3-12 11.9-1.3 5.9-.1 9.8 4.5 14.6 5.8 6 14.3 11.4 29.7 18.8 52.5 25.1 145.7 46.7 243.6 56.4 67.1 6.6 147.8 7.3 220 2 116-8.7 222.9-30.7 267.9-55.2 14.7-8 20.6-15 19.4-22.9-1.6-10.7-8.5-17-22.3-20.5-7.7-2-37.7-1.7-56 .5-8 .9-29.6 3.9-48 6.6-98.7 14.5-119.3 17.1-165 21-81.5 6.9-150.8 6.3-233.5-2-40.7-4.1-87-11-145.5-21.5-48-8.7-61.6-10.5-80.5-11.1-15-.4-17.6-.3-22.3 1.4"/></svg>
-        <box id="statBox" onblur="" contenteditable="true" placeholder="Card Stats"></box>
+        <box id="statBox" onchange="autoReplaceSymbols();" contenteditable="true" placeholder="Card Stats"></box>
         <box id="pdback">
           <box id="pd" contenteditable="true" placeholder="P/T">1/1</box>
         </box>
@@ -492,45 +534,47 @@ function indtast(key) {
     <svg id="artnub" fill="white" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="40 30 100 60"><path d="M85.3 52.7c-2.2.4-7.3 4.9-7.3 6.4 0 1.6-1.7.9-5.5-2.1-6.3-5-6.5-4.7-6.5 10.5 0 7.4.2 13.5.5 13.5 1.4 0 6.2-3 7.9-4.8 1.8-2.1 1.8-2.1 5.7 2 3.8 4 3.9 4.1 9.7 3.6 6.7-.7 12-3.1 21-9.6 3.4-2.5 6.2-4.7 6.2-4.8s-2.6-2.1-5.7-4.5c-10-7.5-19.9-11.4-26-10.2m14.4 5.2c8.9 4.6 14.7 8.8 13.3 9.6-.7.4-4.1 1-7.6 1.3-5 .4-7.6 0-12.4-1.8-4.3-1.6-7.3-2.1-10.5-1.8-5.1.6-5.6-.3-3-5.2 3.6-6.9 9.7-7.5 20.2-2.1"/></svg><artist contenteditable="true" placeholder="artist"></artist>
     <printer contenteditable="true" placeholder="printer">github.com/danielrwallentine</printer>
   </div>
-  <styler>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" onclick="custom();" checked>
-      <label class="form-check-label" for="inlineRadio1">Default</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1" onclick="custom();">
-      <label class="form-check-label" for="inlineRadio2">Showcase</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="2" onclick="custom();">
-      <label class="form-check-label" for="inlineRadio3">Nickname</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="3" onclick="custom(); importBorder();">
-      <label class="form-check-label" for="inlineRadio4">Custom</label>
-    </div>
-  </styler>
+  
   <div class="keyboard">
-    <mana class="w" onclick="keyPress(this);"></mana>
-    <mana class="u" onclick="keyPress(this);"></mana>
-    <mana class="b" onclick="keyPress(this);"></mana>
-    <mana class="r" onclick="keyPress(this);"></mana>
-    <mana class="g" onclick="keyPress(this);"></mana>
-    <mana class="a" onclick="keyPress(this);"></mana>
-    <mana val="X" onclick="keyPress(this);"></mana>
-    <mana val="0" onclick="keyPress(this);"></mana>
-    <mana val="1" onclick="keyPress(this);"></mana>
-    <mana val="2" onclick="keyPress(this);"></mana>
-    <mana val="3" onclick="keyPress(this);"></mana>
-    <mana val="4" onclick="keyPress(this);"></mana>
-    <mana val="5" onclick="keyPress(this);"></mana>
-    <mana val="6" onclick="keyPress(this);"></mana>
-    <mana val="7" onclick="keyPress(this);"></mana>
-    <mana val="8" onclick="keyPress(this);"></mana>
-    <mana val="9" onclick="keyPress(this);"></mana>
-  </div>
-  <input id="fontsize" type="number" value="16" onblur="updateText(this);">
-  <div id="color" class="btn" onclick="toggleColor();">Toggle Text Color</div>
-  <div id="export" class="btn" onclick="exportImage();">Export as Image</div>
+    <abbr class="card-symbol card-symbol-W" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-U" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-B" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-R" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-G" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-C" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-X" val="X" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-0" val="0" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-1" val="1" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-2" val="2" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-3" val="3" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-4" val="4" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-5" val="5" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-6" val="6" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-7" val="7" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-8" val="8" onclick="keyPress(this);"></abbr>
+    <abbr class="card-symbol card-symbol-9" val="9" onclick="keyPress(this);"></abbr>
+    <br><em>Style:</em>
+    <styler>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" onclick="custom();" checked>
+        <label class="form-check-label" for="inlineRadio1">Default</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1" onclick="custom();">
+        <label class="form-check-label" for="inlineRadio2">Showcase</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="2" onclick="custom();">
+        <label class="form-check-label" for="inlineRadio3">Nickname</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="3" onclick="custom(); importBorder();">
+        <label class="form-check-label" for="inlineRadio4">Custom</label>
+      </div>
+    </styler>
+    <br><em>Font Size:</em><input id="fontsize" type="number" value="16" onchange="updateText(this);">
+    <div id="color" class="btn" onclick="toggleColor();">Toggle Text Color</div>
+    <div id="export" class="btn" onclick="exportImage();">Export as Image</div>
+</div>
 </body>
 </html>
