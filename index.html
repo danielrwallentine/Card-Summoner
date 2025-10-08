@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Card Summoning</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 <script>
 
@@ -55,8 +54,8 @@ function updateFrameColor() {
  }
 
  if (document.querySelector("styler :checked").getAttribute("value") == "0") {
-  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Basic/' + legend + cardColor + '.png")';
+  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/PT/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/Basic/' + legend + cardColor + '.png")';
   document.querySelector("#cardName").style.color = "black";
   document.querySelector("#nickname").style.color = "transparent";
   document.querySelector("#typeLine").style.color = "black";
@@ -64,8 +63,8 @@ function updateFrameColor() {
   document.querySelector("#pd").style.color = "black";
   color_state = 0;
  } else if (document.querySelector("styler :checked").getAttribute("value") == "1") {
-  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Showcase/' + legend + cardColor + '.png")';
+  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/PT/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/Showcase/' + legend + cardColor + '.png")';
   document.querySelector("#nickname").style.color = "transparent";
   document.querySelector("#cardName").style.color = "black";
   document.querySelector("#nickname").style.color = "transparent";
@@ -73,8 +72,8 @@ function updateFrameColor() {
   document.querySelector("#statBox").style.color = "white";
   document.querySelector("#pd").style.color = "black";
  } else if (document.querySelector("styler :checked").getAttribute("value") == "2") {
-  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/PT/' + cardColor + '.png")';
-  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Nickname/' + legend + cardColor + '.png")';
+  document.querySelector("#pdback").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/PT/' + cardColor + '.png")';
+  document.querySelector("border").style.backgroundImage = 'url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/Nickname/' + legend + cardColor + '.png")';
   document.querySelector("#cardName").style.color = "white";
   document.querySelector("#nickname").style.color = "white";
   document.querySelector("#typeLine").style.color = "white";
@@ -196,19 +195,15 @@ function indtast(key) {
 <style>
   @font-face {
     font-family: "Beleren";
-    src: 
-      url("https://github.com/danielrwallentine/Card-Summoner/raw/refs/heads/master/data/fonts/BelerenBold.ttf") format('ttf'),
-      url("https://github.com/danielrwallentine/Card-Summoner/raw/refs/heads/master/data/fonts/BelerenBold.woff") format('woff');
+    src: url('/fonts/BelerenBold.ttf');
   }
   @font-face {
     font-family: "BelerenSmallCaps";
-    src: 
-      url("https://github.com/danielrwallentine/Card-Summoner/raw/refs/heads/master/data/fonts/BelerenSmallCapsBold.ttf") format('ttf'),
-      url("https://github.com/danielrwallentine/Card-Summoner/raw/refs/heads/master/data/fonts/BelerenSmallCapsBold.woff") format('woff');
+    src: url('/fonts/BelerenSmallCapsBold.ttf');
   }
   @font-face {
-    font-family: "Mana";
-    src: url("https://github.com/danielrwallentine/Card-Summoner/raw/refs/heads/master/data/fonts/mana.ttf");
+    font-family: "ManaSymbols";
+    src: url('/fonts/mana.ttf');
   }
   [placeholder]:empty:before {
     content:attr(placeholder);
@@ -247,7 +242,7 @@ function indtast(key) {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image:url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/data/images/m15/Basic/A.png");
+    background-image:url("https://raw.githubusercontent.com/danielrwallentine/Card-Summoner/refs/heads/master/images/m15/Basic/A.png");
   }
   collection {
     display:block;
@@ -370,7 +365,7 @@ function indtast(key) {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image:url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/data/images/cardImages/m15/m15PTA.png");
+    background-image:url("https://raw.githubusercontent.com/joshbirnholz/cardconjurer/refs/heads/master/images/cardImages/m15/m15PTA.png");
   }
   #pd {
     position:relative;
@@ -420,7 +415,7 @@ function indtast(key) {
     justify-content:center;
     align-items: center;
     text-align:center;
-    font-family: "Beleren";
+    font-family: "ManaSymbols";
     background-color:rgb(186,179,177);
     width:20px;
     height:20px;
@@ -444,39 +439,39 @@ function indtast(key) {
     background-color:rgb(248,231,185);
   }
   .w::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E600';
   }
   .u {
     background-color:rgb(179,206,234);
   }
   .u::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E601';
   }
   .b {
     background-color:rgb(186,179,177);
   }
   .b::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E602';
   }
   .r {
     background-color:rgb(235,159,130);
   }
   .r::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E603';
   }
   .g {
     background-color:rgb(145,200,160);
   }
   .g::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E604';
   }
   .a::after {
-    font-family: "Mana";
+    font-family: "ManaSymbols";
     content:'\E904';
   }
   .itlc {
