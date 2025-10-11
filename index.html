@@ -16,9 +16,14 @@ function keyPress(key) {
   updateFrameColor();
 }
 
-function autoReplaceSymbols() {
-  statbox = document.querySelector("#statBox");
-  
+function autoReplaceSymbols(elem) {
+  symbol = "{W}";
+  while (elem.innerHTML.includes(symbol)) {
+    index = elem.innerHTML.indexOf(symbol);
+    beforeText = elem.innerHTML.substring(0, index);
+    afterText = elem.innerHTML.substring(index + symbol.length());
+    elem.innerHTML = beforeText + '<abbr class="card-symbol card-symbol-W"></abbr>' + afterText;
+  }
 }
 
 function loadImage() {
@@ -44,9 +49,9 @@ legend = "";
 function updateFrameColor() {
  colors = "";
  document.querySelector("#cardCost").childNodes.forEach((elm) => {
-  if (!!elm.getAttribute("class")) {
-   if (!colors.includes(elm.getAttribute("class"))) {
-    colors += elm.getAttribute("class");
+  if (elm.getAttribute("class").includes("-W") || elm.getAttribute("class").includes("-U") || elm.getAttribute("class").includes("-B") || elm.getAttribute("class").includes("-R") || elm.getAttribute("class").includes("-G") || elm.getAttribute("class").includes("-C")) {
+   if (!colors.includes(elm.getAttribute("class").replaceAll("card-symbol-", "").replaceAll("card-symbol", "").replaceAll(" ", ""))) {
+    colors += elm.getAttribute("class").replaceAll("card-symbol-", "").replaceAll("card-symbol", "").replaceAll(" ", "");
    }
   }
  });
@@ -128,16 +133,31 @@ i.click();
 }
 
 function exportImage() {
-  
-  htmlToImage.toPng(document.getElementById("ach")).then(function (dataUrl) {
-    var link = document.createElement('a');
-    link.download = document.querySelector("#cardName").innerHTML;
-    link.href = dataUrl;
-    link.click();
+  htmlToImage
+  .toBlob(document.getElementById("ach"))
+  .then((blob) => {
+
+    const file = new File([blob], document.querySelector("#cardName").innerHTML + ".png", { type: "image/png" });
+
+    if (navigator.canShare && navigator.canShare({ files: [ file ] })) {
+      navigator.share({
+        files: [file]
+      })
+      .then(() => console.log('Share was successful.'))
+      .catch((error) => console.log('Sharing failed', error.message));
+    } else {
+      console.log("can't share this");
+      htmlToImage.toPng(document.getElementById("ach")).then(function (dataUrl) {
+        var link = document.createElement('a');
+        link.download = document.querySelector("#cardName").innerHTML;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch(function (error) {
+        console.error('Oops, something went wrong!', error);
+      });
+    }
   })
-  .catch(function (error) {
-    console.error('Oops, something went wrong!', error);
-  });
 }
 
 var color_state = 0;
@@ -188,12 +208,6 @@ function updateIcon(txt) {
 
 function italicize() {
   document.querySelector("#statBox").innerHTML = document.querySelector("#statBox").innerHTML + "<span class=itlc>Keyword</span> ー Ability";
-}
-
-function indtast(key) {
- i = key.cloneNode(true);
- i.setAttribute("onclick", "");
- document.querySelector("#statBox").appendChild(i);
 }
 
 </script>
@@ -320,7 +334,8 @@ function indtast(key) {
     display:inline-block;
     position:absolute;
     left:10px;
-    top:27px;
+    top:24px;
+    font-size: 18px;
   }
   #nickname {
     display:inline-block;
@@ -528,7 +543,7 @@ function indtast(key) {
         <box id="pictureFrame" onclick="loadImage();"></box>
         <box id="typeLine" onblur="updateBorderByType(this);" contenteditable="true" placeholder="Card Type">Creature - Human</box>
         <svg id="icon" fill="orange" stroke="black" stroke-width="40" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="600 400 1000 900"><path d="M1000 552.7c-100.7 2.7-201.4 18.7-232.6 36.8-5.9 3.5-6.8 6.3-6.1 20.3.8 17.1 3.7 32 22.6 115.7 12 53.2 21 99.4 26.1 134.2 3.3 22.6 7 55.2 7 61.8 0 3.3.6 4.5 3.5 7l3.5 3 .6 18c.7 19.2 0 23.3-3.6 24.2-1.8.5-2 1.4-2 8.2 0 11.6-1.9 34.2-4 48.1-1 6.8-1.8 12.6-1.7 12.7.5.4 56.1 8.3 72.2 10.2 48.4 5.8 91.3 8.3 143.5 8.3 65.9.1 111.4-3.5 183.5-14.7 31.7-4.9 78.6-13.4 79.8-14.5.4-.4-.7-5.8-2.6-12.1-4-13.2-7.1-26.4-9.6-41-1.5-9.1-2-10.4-3.9-10.7-1.1-.2-2.5-.9-3-1.5-1.6-2-3.1-11.1-4.4-26.4l-1.2-14.6 2.7-2.3 2.7-2.3.4-40.3c.7-70.1 6.1-115.9 27-230.8 9.5-52 10-58.2 5.2-61.3-5.8-3.8-30.9-11.1-53.6-15.6-54.7-10.8-122.4-17.8-194-20.1-28.8-.9-35.1-1-58-.3m-39.7 310.7c18.4 5.5 29.6 12.2 42.7 25.6 17.3 17.6 25.3 37.3 25.4 62 0 24.7-8 44.6-25.3 62.3-29.3 30.3-74 37.7-112.2 18.7-54.1-26.8-67.7-97.2-27.3-140.8 14.6-15.8 30.2-24.7 52.5-29.7 4.5-1 10.7-1.4 20.9-1.1 12.1.3 16 .8 23.3 3m221.5-1.8c9.8 2 23.4 7.1 30.7 11.5 25.8 15.4 42.7 42.6 45 72.1 1.3 16.4-3.4 36.2-12.3 51.3-5.6 9.6-21.9 26.4-30.4 31.3-19.4 11.4-40 16.2-60.7 14.2-60.4-6-99.3-64-80.2-119.7 4.1-12 10.5-22.5 19.4-31.9 14.8-15.7 29.9-24.1 51.8-28.9 8.9-1.9 27.3-1.9 36.7.1m-122.5 79.3c4.7 3.2 4.7 3.3 4.7 8.9 0 6.4-.6 7.6-3.6 8.6-1.4.4-2.7-.1-4.4-1.9-3.8-4.1-8.2-4.3-14.2-.6-7.2 4.5-8.8 3.7-8.8-4.3 0-7 .8-8.6 6.5-12.1 5.7-3.6 13.2-3.1 19.8 1.4"/><path d="M924.2 879c-19.6 2.7-38.5 13.4-49.7 28.2-20.5 27-20.3 62.8.5 88.5 20.3 25.1 54.7 34.5 85.5 23.6 23.2-8.3 40.9-27.5 47.1-51.3 2.3-8.7 2.3-25.3 0-34-9.5-36-46-60.1-83.4-55m228.5.1c-19.1 2.6-37.9 13.2-49.2 27.9-36 46.8-5 112.6 55 116.7 35.9 2.4 68.2-20.2 77.6-54.4 2.7-9.8 2.9-24.7.5-34.8-6.1-25.5-28.4-47.5-54.6-53.8-8.6-2.1-20.9-2.8-29.3-1.6m120.6 49.5c-.7 1.9.4 24.3 1.5 29.4.8 3.4.9 3.5 6.3 3.8 7.5.4 8.5-.8 6.9-8.2-.6-3.1-1.4-10.2-1.8-15.8l-.7-10.3-5.8-.3c-4.6-.2-5.8 0-6.4 1.4m-466.6 6.1c-.2.5-.2 8.1.1 17.1.5 18.3.2 17.7 8.8 17 3.7-.3 3.9-.5 4.6-4.3.9-5.2-.2-27.6-1.5-29.3-1-1.3-11.3-1.7-12-.5m-150.5 107.1c-7 2.5-10.9 6.3-12 11.9-1.3 5.9-.1 9.8 4.5 14.6 5.8 6 14.3 11.4 29.7 18.8 52.5 25.1 145.7 46.7 243.6 56.4 67.1 6.6 147.8 7.3 220 2 116-8.7 222.9-30.7 267.9-55.2 14.7-8 20.6-15 19.4-22.9-1.6-10.7-8.5-17-22.3-20.5-7.7-2-37.7-1.7-56 .5-8 .9-29.6 3.9-48 6.6-98.7 14.5-119.3 17.1-165 21-81.5 6.9-150.8 6.3-233.5-2-40.7-4.1-87-11-145.5-21.5-48-8.7-61.6-10.5-80.5-11.1-15-.4-17.6-.3-22.3 1.4"/></svg>
-        <box id="statBox" onchange="autoReplaceSymbols();" contenteditable="true" placeholder="Card Stats"></box>
+        <box id="statBox" onblur="" contenteditable="true" placeholder="Card Stats (type with '{color_initial}' format to add symbols)"></box>
         <box id="pdback">
           <box id="pd" contenteditable="true" placeholder="P/T">1/1</box>
         </box>
@@ -579,6 +594,7 @@ function indtast(key) {
     <br><em>Font Size:</em><input id="fontsize" type="number" value="16" onchange="updateText(this);">
     <div id="color" class="btn" onclick="toggleColor();">Toggle Text Color</div>
     <div id="export" class="btn" onclick="exportImage();">Export as Image</div>
-</div>
+    <p>Note: Zoom in your browser screen before exporting to get a higher resolution output :)</p>
+  </div>
 </body>
 </html>
