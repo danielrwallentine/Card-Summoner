@@ -17,15 +17,13 @@ function keyPress(key) {
 }
 
 function autoReplaceSymbols(elem) {
-  const symbol = ["{W}", "{U}", "{B}", "{R}", "{G}", "{C}"];
-  symbol.forEach((current) => {
-    while (elem.innerHTML.includes(current)) {
-      index = elem.innerHTML.indexOf(current);
-      beforeText = elem.innerHTML.substring(0, index);
-      afterText = elem.innerHTML.substring(index + current.length);
-      elem.innerHTML = beforeText + '<abbr contenteditable="false" class="card-symbol card-symbol-' + current.replaceAll("{", "").replaceAll("}", "") + '"></abbr>' + afterText;
-    }
-  });
+  while (elem.innerHTML.includes('{') && elem.innerHTML.includes('}')) {
+    index = elem.innerHTML.indexOf('{');
+    index2 = elem.innerHTML.indexOf('}');
+    beforeText = elem.innerHTML.substring(0, index);
+    afterText = elem.innerHTML.substring(index2 + 1);
+    elem.innerHTML = beforeText + '<abbr contenteditable="false" class="card-symbol card-symbol-' + elem.innerHTML.substring(index + 1, index2) + '"></abbr>' + afterText;
+  }
 }
 
 function loadImage() {
